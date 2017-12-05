@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> Audio </title>
+  </head>
+  <body>
+
+    <h1> Speech Recognition </h1>
+    <div class="words" contenteditable>
+
+    </div>
+
+    <style media="screen">
+
+    @font-face {
+      font-family: 'Raleway-Regular';
+      src: url(Raleway/Raleway-Regular.ttf);
+    }
+
+    @font-face {
+      font-family: 'Raleway-Black';
+      src: url(Raleway/Raleway-Black.ttf);
+    }
+
+    h1 {
+      font-family: 'Raleway-Black';
+      text-align: center;
+      font-size: 100px;
+    }
+
+      html {
+        font-size: 10px;
+      }
+
+      body {
+        background:  #ffc600;
+        font-family: 'helvetica neue';
+      }
+
+      .words {
+        width: 40%;
+        background: #FFF;
+        box-shadow: 2px 2px 2px #ccc;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 30px auto;
+      }
+
+      p{
+        padding: 10px;
+        border-bottom: 1px solid #EEE;
+        font-size: 14px;
+        font-family: 'Raleway-Regular';
+      }
+    </style>
+    <script>
+
+      console.log(window.webkitSpeechRecognition);
+      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      const recognition = new SpeechRecognition();
+      recognition.interimResults = true;
+
+      let p = document.createElement('p');
+      const words = document.querySelector('.words');
+      words.appendChild(p);
+
+      recognition.addEventListener('result', e => {
+        console.log(e);
+        const transcript = Array.from(e.results)
+          .map(result => result[0])
+          .map(result => result.transcript)
+          .join('')
+
+        p.textContent = transcript;
+
+        if(e.results[0].isFinal) {
+          p = document.createElement('p');
+          words.appendChild(p);
+        }
+        console.log(transcript);
+      });
+
+      recognition.addEventListener('end', recognition.start);
+
+      recognition.start();
+
+    </script>
+  </body>
+</html>
