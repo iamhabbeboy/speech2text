@@ -1,5 +1,5 @@
 # speech2text
-Using HTML5 can now convert your speech to text very easily, But Internet is required for the processing.
+Using HTML5 can now convert your speech to text easily, But Internet is required for the processing.
 
 # Server Required
 In other to run this simple audio.html, you need to setup simple server. The simplest way to setup server is to install 'serve' using 'npm install serve'
